@@ -27,11 +27,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     app:contentInsetStart="16dp"
-                    app:logo="@drawable/logo"
                     app:logoDescription="@string/app_name"
                     app:layout_collapseMode="pin">
+                </android.support.v7.widget.Toolbar>
 
-        </android.support.v7.widget.Toolbar>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/logo"
+                    android:contentDescription="@string/app_name"
+                    android:layout_gravity="bottom" />
+
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
