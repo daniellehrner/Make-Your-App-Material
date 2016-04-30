@@ -8,7 +8,6 @@
         android:id="@+id/toolbar_container"
         android:layout_width="match_parent"
         android:layout_height="144dp"
-        android:layout_marginBottom="16dp"
         android:background="?colorPrimary">
 
             <android.support.design.widget.CollapsingToolbarLayout
@@ -58,7 +57,5 @@
             android:layout_height="match_parent"
             android:scrollbarStyle="outsideOverlay" />
     </android.support.v4.widget.SwipeRefreshLayout>
-
-
 
 </android.support.design.widget.CoordinatorLayout>

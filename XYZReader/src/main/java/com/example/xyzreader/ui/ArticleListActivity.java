@@ -176,7 +176,6 @@ public class ArticleListActivity extends AppCompatActivity implements
             Glide
                 .with(mContext)
                 .load(mCursor.getString(ArticleLoader.Query.THUMB_URL))
-                .centerCrop()
                 .into(holder.thumbnailView);
 
 //            holder.thumbnailView.setImageUrl(
