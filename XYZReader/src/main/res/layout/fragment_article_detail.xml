@@ -29,8 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:contentDescription="@string/image_desc"
-                android:scaleType="centerCrop"
-                android:transitionName="@string/transition_photo" />
+                android:scaleType="centerCrop" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/detail_toolbar"
