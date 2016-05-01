@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -112,11 +113,9 @@ public class ArticleListActivity extends AppCompatActivity implements
         mRecyclerView.setAdapter(adapter);
 
         if (!isTablet) {
-            Log.d(LOG_TAG, "is not a tablet");
             mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         }
         else {
-            Log.d(LOG_TAG, "is a tablet");
             int columnCount = mResources.getInteger(R.integer.list_column_count);
             GridLayoutManager layoutManager =
                     new GridLayoutManager(mContext,
@@ -154,17 +153,23 @@ public class ArticleListActivity extends AppCompatActivity implements
                 public void onClick(View view) {
                     Bundle bundle = null;
 
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                        CardView cardView = (CardView)view;
-//                        RelativeLayout relativeLayout = (RelativeLayout) cardView.getChildAt(0);
-//                        ImageView imageView = (ImageView) relativeLayout.getChildAt(0);
-//
-//                        bundle = ActivityOptions.makeSceneTransitionAnimation(ArticleListActivity.this, (View) imageView,
-//                                imageView.getTransitionName()).toBundle();
-//                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        CardView cardView = (CardView)view;
+                        RelativeLayout relativeLayout = (RelativeLayout) cardView.getChildAt(0);
+                        ImageView imageView = (ImageView) relativeLayout.getChildAt(0);
+
+                        bundle = ActivityOptionsCompat
+                                .makeSceneTransitionAnimation(
+                                        ArticleListActivity.this,
+                                        imageView,
+                                        imageView.getTransitionName())
+                                .toBundle();
+                    }
 
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))), bundle);
+                            ItemsContract.Items.buildItemUri(
+                                    getItemId(vh.getAdapterPosition()))),
+                            bundle);
                 }
             });
             return vh;
@@ -187,11 +192,9 @@ public class ArticleListActivity extends AppCompatActivity implements
                 .load(mCursor.getString(ArticleLoader.Query.THUMB_URL))
                 .into(holder.thumbnailView);
 
-//            holder.thumbnailView.setImageUrl(
-//                    mCursor.getString(ArticleLoader.Query.THUMB_URL),
-//                    ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
-//
-//            holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                holder.thumbnailView.setTransitionName(mCursor.getString(ArticleLoader.Query.TITLE));
+            }
         }
 
         @Override
