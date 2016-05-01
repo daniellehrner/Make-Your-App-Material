@@ -38,7 +38,6 @@ public class ArticleLoader extends CursorLoader {
         int AUTHOR = 3;
         int THUMB_URL = 4;
         int PHOTO_URL = 5;
-        int ASPECT_RATIO = 6;
         int BODY = 7;
     }
 }

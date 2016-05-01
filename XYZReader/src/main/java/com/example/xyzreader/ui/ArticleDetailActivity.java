@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.transition.Slide;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 
 import com.example.xyzreader.R;
@@ -30,11 +29,9 @@ public class ArticleDetailActivity extends AppCompatActivity
     private Cursor mCursor;
     private long mStartId;
 
-    private long mSelectedItemId;
-
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
-    private int slideDuration = 300;
+    private static int mSlideDuration = 300;
 
 
     @Override
@@ -54,23 +51,16 @@ public class ArticleDetailActivity extends AppCompatActivity
 
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
-            public void onPageScrollStateChanged(int state) {
-                super.onPageScrollStateChanged(state);
-            }
-
-            @Override
             public void onPageSelected(int position) {
                 if (mCursor != null) {
                     mCursor.moveToPosition(position);
                 }
-                mSelectedItemId = mCursor.getLong(ArticleLoader.Query._ID);
             }
         });
 
         if (savedInstanceState == null) {
             if (getIntent() != null && getIntent().getData() != null) {
                 mStartId = ItemsContract.Items.getItemId(getIntent().getData());
-                mSelectedItemId = mStartId;
             }
         }
 
@@ -79,7 +69,7 @@ public class ArticleDetailActivity extends AppCompatActivity
             slide.addTarget(R.id.article_body);
             slide.setInterpolator(AnimationUtils.loadInterpolator(this, android.R.interpolator
                     .linear_out_slow_in));
-            slide.setDuration(slideDuration);
+            slide.setDuration(mSlideDuration);
             getWindow().setEnterTransition(slide);
         }
     }
