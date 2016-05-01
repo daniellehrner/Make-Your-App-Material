@@ -64,14 +64,14 @@ public class ArticleDetailActivity extends AppCompatActivity
             }
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Slide slide = new Slide(Gravity.BOTTOM);
-            slide.addTarget(R.id.article_body);
-            slide.setInterpolator(AnimationUtils.loadInterpolator(this, android.R.interpolator
-                    .linear_out_slow_in));
-            slide.setDuration(mSlideDuration);
-            getWindow().setEnterTransition(slide);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Slide slide = new Slide(Gravity.BOTTOM);
+//            slide.addTarget(R.id.article_body);
+//            slide.setInterpolator(AnimationUtils.loadInterpolator(this, android.R.interpolator
+//                    .linear_out_slow_in));
+//            slide.setDuration(mSlideDuration);
+//            getWindow().setEnterTransition(slide);
+//        }
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class ArticleDetailFragment extends Fragment implements
     private View mRootView;
     private Context mContext;
     private ImageView mPhotoView;
+    Toolbar mToolbar;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     /**
@@ -85,8 +87,8 @@ public class ArticleDetailFragment extends Fragment implements
             Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
 
-        Toolbar toolbar = (Toolbar) mRootView.findViewById(R.id.detail_toolbar);
-        toolbar.setOnClickListener(new View.OnClickListener() {
+        mToolbar = (Toolbar) mRootView.findViewById(R.id.detail_toolbar);
+        mToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -126,7 +128,15 @@ public class ArticleDetailFragment extends Fragment implements
         if (mCursor != null) {
             mRootView.setAlpha(1);
             mRootView.setVisibility(View.VISIBLE);
-            mCollapsingToolbarLayout.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+
+            if (mCollapsingToolbarLayout != null) {
+                mCollapsingToolbarLayout.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+            }
+            else {
+                TextView title = (TextView) mRootView.findViewById(R.id.article_title);
+                title.setText(mCursor.getString(ArticleLoader.Query.TITLE));
+//                mToolbar.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+            }
             bylineView.setText(Html.fromHtml(
                     DateUtils.getRelativeTimeSpanString(
                             mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
@@ -142,7 +152,14 @@ public class ArticleDetailFragment extends Fragment implements
                 .into(mPhotoView);
         } else {
             mRootView.setVisibility(View.GONE);
-            mCollapsingToolbarLayout.setTitle("N/A");
+
+            if (mCollapsingToolbarLayout != null) {
+                mCollapsingToolbarLayout.setTitle("N/A");
+            }
+            else {
+                TextView title = (TextView) mRootView.findViewById(R.id.article_title);
+                title.setText("N/A");
+            }
             bylineView.setText("N/A" );
             bodyView.setText("N/A");
         }

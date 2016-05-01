@@ -24,7 +24,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     app:contentInsetStart="16dp"
-                    app:elevation="@dimen/app_bar_elevation"
                     app:logoDescription="@string/app_name"
                     app:layout_collapseMode="pin">
                 </android.support.v7.widget.Toolbar>

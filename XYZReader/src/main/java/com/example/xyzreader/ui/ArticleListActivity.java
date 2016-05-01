@@ -1,5 +1,6 @@
 package com.example.xyzreader.ui;
 
+import android.app.ActivityOptions;
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,9 +9,11 @@ import android.content.IntentFilter;
 import android.content.Loader;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -52,11 +56,6 @@ public class ArticleListActivity extends AppCompatActivity implements
         LOG_TAG = mContext.getClass().getSimpleName();
 
         isTablet = mResources.getBoolean(R.bool.is_tablet);
-
-//        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
-
-//        final View toolbarContainerView = findViewById(R.id.toolbar_container);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
@@ -153,8 +152,19 @@ public class ArticleListActivity extends AppCompatActivity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Bundle bundle = null;
+
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                        CardView cardView = (CardView)view;
+//                        RelativeLayout relativeLayout = (RelativeLayout) cardView.getChildAt(0);
+//                        ImageView imageView = (ImageView) relativeLayout.getChildAt(0);
+//
+//                        bundle = ActivityOptions.makeSceneTransitionAnimation(ArticleListActivity.this, (View) imageView,
+//                                imageView.getTransitionName()).toBundle();
+//                    }
+
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+                            ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))), bundle);
                 }
             });
             return vh;
